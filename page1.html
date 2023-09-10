@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 1</title>
+</head>
+
+<body>
+    <header>
+        <h1>Page 1 Header</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="page1.html">Page 1</a></li>
+            <li><a href="page2.html">Page 2</a></li>
+            <li><a href="page3.html">Page 3</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Questionnaire</h2>
+        <form id="questionForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name"><br>
+
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" name="image"><br>
+
+            <label>Course:</label><br>
+            <input type="radio" id="ITBA" name="course" value="ITBA">
+            <label for="ITBA">ITBA</label><br>
+
+            <input type="radio" id="BE" name="course" value="BE">
+            <label for="BE">BE</label><br>
+
+            <input type="radio" id="EBD" name="course" value="EBD">
+            <label for="EBD">EBD</label><br><br>
+
+            <label>Favourite subject(s):</label><br>
+            <input type="checkbox" id="FSE" name="subject" value="FSE">
+            <label for="FSE">FSE</label><br>
+
+            <input type="checkbox" id="WT" name="subject" value="WT">
+            <label for="WT">WT</label><br>
+
+            <input type="checkbox" id="PP" name="subject" value="PP">
+            <label for="PP">PP</label><br><br>
+
+            <button type="button" onclick="getValue()">Get value</button>
+        </form>
+        <table id="answerTable" border="1">
+            <tr>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Interests</th>
+                <th>Image</th>
+            </tr>
+        </table>
+    </main>
+    <footer>
+        <p>Footer</p>
+    </footer>
+    <script>
+        function getValue() {
+            var name = document.getElementById("name").value;
+            var courseElements = document.getElementsByName("course");
+            var course;
+            for (var i = 0; i < courseElements.length; i++) {
+                if (courseElements[i].checked) {
+                    course = courseElements[i].value;
+                    break;
+                }
+            }
+
+            var imageInput = document.getElementById("image");
+            var imageFile = imageInput.files[0];
+
+            var subjects = [];
+            var subjectElements = document.getElementsByName("subject");
+            for (var i = 0; i < subjectElements.length; i++) {
+                if (subjectElements[i].checked) {
+                    subjects.push(subjectElements[i].value);
+                }
+            }
+
+            var table = document.getElementById("answerTable");
+            var newRow = table.insertRow(table.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+
+            cell1.innerHTML = name;
+            cell2.innerHTML = course;
+            cell3.innerHTML = subjects.join(", ");
+            if (imageFile) {
+                var imageElement = document.createElement("img");
+                imageElement.src = URL.createObjectURL(imageFile);
+                cell4.appendChild(imageElement);
+            }
+        }
+    </script>
+</body>
+
+</html>
